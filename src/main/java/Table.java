@@ -1,50 +1,39 @@
-public class Table implements Comparable<Table>{
+public class Table implements Comparable<Table> {
     private final int capacity;
     private boolean available;
     private Order order;
 
-    public Table(int capacity)
-    {
+    public Table(int capacity) {
         this.capacity = capacity;
         available = true;
         order = null;
     }
 
-    public int getCapacity()
-    {
+    public int getCapacity() {
         return this.capacity;
     }
 
-    public boolean isAvailable()
-    {
+    public boolean isAvailable() {
         return this.available;
     }
 
-    public void markAvailable()
-    {
+    public void markAvailable() {
         this.available = true;
     }
 
-    public void markUnavailable()
-    {
+    public void markUnavailable() {
         this.available = false;
     }
 
-    public Order getCurrentOrder()
-    {
+    public Order getCurrentOrder() {
         return this.order;
     }
 
-    public void setOrder(Order o)
-    {
-        if(order == null)
-        {
+    public void setOrder(Order o) {
+        if (order == null) {
             this.order = o;
-        }
-        else
-        {
-            if(o != null)
-            {
+        } else {
+            if (o != null) {
                 this.order.mergeOrder(o);
             } else {
                 this.order = o;

@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 public class Restaurant2 {
+    public static final int MAX_DINE_HOUR = 2;
+    public static final long HOUR = 3600 * 1000;
     private final List<Table2> tables;
     private final List<Meal> menu;
-    public static final int MAX_DINE_HOUR = 2;
-    public static final long HOUR = 3600*1000;
 
     public Restaurant2() {
         // Write your code here
@@ -52,20 +52,17 @@ public class Restaurant2 {
         Collections.sort(tables);
     }
 
-    public Reservation findTableForReservation(Party p, Date date)
-    {
+    public Reservation findTableForReservation(Party p, Date date) {
         // Write your code here
         return null;
     }
 
-    public void cancelReservation(Reservation r)
-    {
+    public void cancelReservation(Reservation r) {
         Date date = r.getDate();
         r.getTable().removeReservation(date);
     }
 
-    public void redeemReservation(Reservation r)
-    {
+    public void redeemReservation(Reservation r) {
         Date date = r.getDate();
         Table2 table = r.getTable();
 
@@ -73,22 +70,19 @@ public class Restaurant2 {
         table.removeReservation(date);
     }
 
-    public String restaurantDescription()
-    {
+    public String restaurantDescription() {
         String description = "";
-        for(int i = 0; i < tables.size(); i++)
-        {
+        for (int i = 0; i < tables.size(); i++) {
             Table2 table = tables.get(i);
             description += ("Table: " + table.getId() + ", table size: " + table.getCapacity() + ", isAvailable: " + table.isAvailable() + ".");
-            if(table.getCurrentOrder() == null)
+            if (table.getCurrentOrder() == null)
                 description += " No current order for this table";
             else
-                description +=  " Order price: " + table.getCurrentOrder().getBill();
+                description += " Order price: " + table.getCurrentOrder().getBill();
 
             description += ". Current reservation dates for this table are: ";
 
-            for(Date date : table.getReservation())
-            {
+            for (Date date : table.getReservation()) {
                 description += date.toGMTString() + " ; ";
             }
 
