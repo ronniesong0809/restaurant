@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -66,25 +67,43 @@ public class Table2 implements Comparable<Table2> {
 
     private int findDatePosition(Date d) {
         // Write your code here
-        if (reservation.size() == 0) {
+        int size = reservation.size();
+
+        if (size == 0) {
             return 0;
         }
 
-        Date end = reservation.get(reservation.size() - 1);
-        if (end.getTime() < d.getTime()) {
-            return reservation.size();
+        int result = 0;
+        for (int i = 0; i < size; i++) {
+            if (reservation.get(i).getTime() < d.getTime() ) {
+                result = i;
+            }
         }
-        return 0;
+        return result;
     }
 
     public boolean noFollowReservation(Date d) {
         // Write your code here
-        return false;
+        int index = findDatePosition(d);
+
+        if (index < reservation.size()) {
+            long start = reservation.get(index).getTime();
+            long end = start + Restaurant2.MAX_DINE_HOUR * Restaurant2.HOUR;
+            if (end < d.getTime()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean reserveForDate(Date d) {
         // Write your code here
-        reservation.add(d);
+
+        noFollowReservation(d);
+        int index = findDatePosition(d);
+        reservation.add(index, d);
+        // Collections.sort(reservation);
+
         return true;
     }
 

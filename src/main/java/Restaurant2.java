@@ -31,7 +31,7 @@ public class Restaurant2 {
         t.setOrder(o);
     }
 
-    public float checkOut(Table t) {
+    public float checkOut(Table2 t) {
         // Write your code here
         Order currentOrder = t.getCurrentOrder();
         if (currentOrder != null) {
@@ -54,6 +54,12 @@ public class Restaurant2 {
 
     public Reservation findTableForReservation(Party p, Date date) {
         // Write your code here
+        for (Table2 table : tables) {
+            if (table.isAvailable() && table.getCapacity() >= p.getSize() && table.reserveForDate(date)) {
+                table.markUnavailable();
+                return new Reservation(table, date);
+            }
+        }
         return null;
     }
 
@@ -62,12 +68,13 @@ public class Restaurant2 {
         r.getTable().removeReservation(date);
     }
 
-    public void redeemReservation(Reservation r) {
+    public Table2 redeemReservation(Reservation r) {
         Date date = r.getDate();
         Table2 table = r.getTable();
 
         table.markUnavailable();
         table.removeReservation(date);
+        return table;
     }
 
     public String restaurantDescription() {

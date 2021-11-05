@@ -3,30 +3,8 @@ import java.util.Date;
 public class Main {
     static Restaurant restaurant;
     static Order order;
-    static Restaurant2 restaurant2;
-    static Order order2;
 
     public static void main(String[] args) throws NoTableException {
-        restaurantI();
-        restaurantII();
-    }
-
-    private static void restaurantII() throws NoTableException {
-        restaurant2 = new Restaurant2();
-        restaurant2.addTable(new Table2(1, 2));
-        restaurant2.addTable(new Table2(2, 4));
-        restaurant2.addTable(new Table2(3, 6));
-
-        Table2 table1 = restaurant2.findTable(new Party(5));
-        Table2 table2 = restaurant2.findTable(new Party(3));
-
-        takeOrder2(table1, 1);
-        table2.reserveForDate(new Date());
-
-        System.out.println(restaurant2.restaurantDescription());
-    }
-
-    private static void restaurantI() throws NoTableException {
         restaurant = new Restaurant();
         restaurant.addTable(new Table(2));
         restaurant.addTable(new Table(4));
@@ -53,13 +31,5 @@ public class Main {
         order.addMeal(meal);
 
         restaurant.takeOrder(t, order);
-    }
-
-    private static void takeOrder2(Table2 t, int price) {
-        order = new Order();
-        Meal meal = new Meal(price);
-        order.addMeal(meal);
-
-        restaurant2.takeOrder(t, order);
     }
 }
